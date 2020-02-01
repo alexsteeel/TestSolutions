@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DataTransferFromRESTApiToDB.Models
+namespace DataTransferFromRESTApiToDB
 {
     /// <summary>
     /// Ж/д станция.
