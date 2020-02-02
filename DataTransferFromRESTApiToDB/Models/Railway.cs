@@ -6,7 +6,7 @@ namespace DataTransferFromRESTApiToDB
     /// <summary>
     /// Железная дорога.
     /// </summary>
-    public class Railway
+    public class Railway : IModel
     {
         public Railway()
         {

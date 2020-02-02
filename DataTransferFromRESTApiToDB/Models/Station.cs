@@ -5,7 +5,7 @@ namespace DataTransferFromRESTApiToDB
     /// <summary>
     /// Ж/д станция.
     /// </summary>
-    public class Station
+    public class Station : IModel
     {
         /// <summary>
         /// Код станции (Первичный ключ).

@@ -71,8 +71,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="RESTfulAPI\RESTfulAPIDataReceiver.cs" />
-    <Compile Include="RESTfulAPI\RootObject.cs" />
+    <Compile Include="DataHandlers\IWriter.cs" />
+    <Compile Include="DataHandlers\IReader.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -82,12 +82,16 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DataBase\UserContext.cs" />
+    <Compile Include="DataHandlers\Readers\RestApiReader.cs" />
+    <Compile Include="DataHandlers\Readers\RootObject.cs" />
+    <Compile Include="DataHandlers\Writers\DbWriter.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\IModel.cs" />
     <Compile Include="Models\Railway.cs" />
     <Compile Include="Models\Station.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -117,6 +121,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Interfaces\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -5,12 +5,11 @@ namespace DataTransferFromRESTApiToDB
     /// <summary>
     /// Служебный класс для конвертации данных из JSON в модель.
     /// </summary>
-    /// <typeparam name="T">Тип данных, в который необходимо сконвертировать JSON.</typeparam>
-    public class RootObject<T>
+    public class RootObject<IModel>
     {
         /// <summary>
         /// Коллекция данных.
         /// </summary>
-        public List<T> Data { get; set; }
+        public IList<IModel> Data { get; set; }
     }
 }

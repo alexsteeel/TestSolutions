@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 
@@ -7,18 +9,30 @@ namespace DataTransferFromRESTApiToDB
     /// <summary>
     /// Получение данных из RESTful API.
     /// </summary>
-    public class RESTfulAPIDataReceiver
+    public class RestApiReader<T> : IReader<IModel>
+        where T : IModel
     {
-        /// <summary>
-        /// Получить данные указанного типа по ссылке.
-        /// </summary>
-        /// <typeparam name="T">Тип данных для конвертации из JSON.</typeparam>
-        /// <param name="url">Ссылка для получения данных.</param>
-        private static void Get<T>(string url)
+        public RestApiReader(string url)
         {
+            URL = url;
+        }
+
+        /// <summary>
+        /// URL для получения данных.
+        /// </summary>
+        public string URL { get; set; }
+
+        /// <summary>
+        /// Получение коллекции данных по ссылке.
+        /// </summary>
+        /// <returns>Коллекция данных.</returns>
+        public IList<IModel> Read()
+        {
+            IList<T> result = new List<T>();
+
             HttpClient client = new HttpClient
             {
-                BaseAddress = new Uri(url)
+                BaseAddress = new Uri(URL)
             };
 
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -27,7 +41,7 @@ namespace DataTransferFromRESTApiToDB
 
             if (response.IsSuccessStatusCode)
             {
-                var dataObjects = response.Content.ReadAsAsync<RootObject<T>>().Result;
+                result = response.Content.ReadAsAsync<RootObject<T>>().Result.Data;
             }
             else
             {
@@ -35,6 +49,8 @@ namespace DataTransferFromRESTApiToDB
             }
 
             client.Dispose();
+
+            return result.Cast<IModel>().ToList();
         }
     }
 }
