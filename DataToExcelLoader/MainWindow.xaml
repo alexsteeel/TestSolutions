@@ -7,6 +7,9 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+        <Button Content="Сохранить данные по ж/д дорогам в Excel"
+                Width="250"
+                Height="40"
+                Command="{Binding SaveDataToExcelCommand}"/>
     </Grid>
 </Window>
