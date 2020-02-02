@@ -28,6 +28,11 @@ namespace DataTransferFromRESTApiToDB
         public int? RailwayID { get; set; }
 
         /// <summary>
+        /// Ж/д дорога.
+        /// </summary>
+        public Railway Railway { get; set; }
+
+        /// <summary>
         /// Идентификатор страны.
         /// </summary>
         public int? CountryID { get; set; }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace DataTransferFromRESTApiToDB
 {
@@ -7,6 +8,11 @@ namespace DataTransferFromRESTApiToDB
     /// </summary>
     public class Railway
     {
+        public Railway()
+        {
+            Stations = new List<Station>();
+        }
+
         /// <summary>
         /// Идентификатор дороги (Первичный ключ).
         /// </summary>
@@ -46,5 +52,11 @@ namespace DataTransferFromRESTApiToDB
         /// Дата обновления записи.
         /// </summary>
         public DateTime DateUpdate { get; set; }
+
+        /// <summary>
+        /// Ж/д станции.
+        /// </summary>
+        public ICollection<Station> Stations { get; set; }
+        
     }
 }
