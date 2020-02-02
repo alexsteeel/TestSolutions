@@ -20,7 +20,7 @@ namespace DataTransferFromRESTApiToDB
         /// <summary>
         /// URL для получения данных.
         /// </summary>
-        public string URL { get; set; }
+        public string URL { get; }
 
         /// <summary>
         /// Получение коллекции данных по ссылке.
