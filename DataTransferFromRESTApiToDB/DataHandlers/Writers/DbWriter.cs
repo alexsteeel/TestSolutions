@@ -1,4 +1,5 @@
 ﻿using EFBulkInsert;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -13,13 +14,23 @@ namespace DataTransferFromRESTApiToDB
         {
             using (UserContext db = new UserContext())
             {
-                var dbSet = db.Set(typeof(T));
+                try
+                {
+                    var dbSet = db.Set(typeof(T));
 
-                var sourceList = source.Cast<T>().ToList();
+                    db.Configuration.AutoDetectChangesEnabled = false;
 
-                db.BulkInsert(sourceList);               
-
-                db.SaveChanges();
+                    db.BulkInsert(source.Cast<T>().ToList());
+                    db.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    db.Configuration.AutoDetectChangesEnabled = true;
+                }
             }
         }
     }

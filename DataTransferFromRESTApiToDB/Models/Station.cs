@@ -1,4 +1,6 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DataTransferFromRESTApiToDB
 {
@@ -8,8 +10,10 @@ namespace DataTransferFromRESTApiToDB
     public class Station : IModel
     {
         /// <summary>
-        /// Код станции (Первичный ключ).
+        /// Код станции.
         /// </summary>
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Code { get; set; }
         
         /// <summary>
@@ -30,6 +34,7 @@ namespace DataTransferFromRESTApiToDB
         /// <summary>
         /// Ж/д дорога.
         /// </summary>
+        [ForeignKey("RailwayID")]
         public Railway Railway { get; set; }
 
         /// <summary>
@@ -40,11 +45,13 @@ namespace DataTransferFromRESTApiToDB
         /// <summary>
         /// 12-символьное наименование станции.
         /// </summary>
+        [MaxLength(12)]
         public string Name12Char { get; set; }
 
         /// <summary>
         /// 40-символьное наименование станции.
         /// </summary>
+        [MaxLength(40)]
         public string Name { get; set; }
 
         /// <summary>
@@ -66,5 +73,24 @@ namespace DataTransferFromRESTApiToDB
         /// Дата обновления записи.
         /// </summary>
         public DateTime DateUpdate { get; set; }
+
+        public int CompareTo(object obj)
+        {
+            if (obj == null)
+            {
+                return 1;
+            }                
+
+            Station otherStation = obj as Station;
+
+            if (otherStation != null)
+            {
+                return this.Code.CompareTo(otherStation.Code);
+            }               
+            else
+            {
+                throw new ArgumentException("Object is not a Station");
+            }                
+        }
     }
 }

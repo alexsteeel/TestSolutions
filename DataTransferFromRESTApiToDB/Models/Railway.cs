@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DataTransferFromRESTApiToDB
 {
@@ -14,8 +16,10 @@ namespace DataTransferFromRESTApiToDB
         }
 
         /// <summary>
-        /// Идентификатор дороги (Первичный ключ).
+        /// Идентификатор дороги.
         /// </summary>
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ID { get; set; }
 
         /// <summary>
@@ -57,6 +61,10 @@ namespace DataTransferFromRESTApiToDB
         /// Ж/д станции.
         /// </summary>
         public ICollection<Station> Stations { get; set; }
-        
+
+        public int CompareTo(object obj)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
