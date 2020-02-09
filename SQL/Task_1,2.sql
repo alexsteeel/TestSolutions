@@ -46,7 +46,6 @@ HAVING
 -- Подзадача 1.2.
 -- Нахождение медианы для множества неуникальных значений.
 
--- Решение аналогично найденному в предыдущей задаче.
 IF OBJECT_ID('tempdb.dbo.#NotUniqueValues') IS NOT NULL
     DROP TABLE #NotUniqueValues;
 
@@ -62,17 +61,29 @@ INSERT INTO #NotUniqueValues
     [Value]
 )
 VALUES
+    --(1, 10),
+    --(2, 10),
+    --(3, 10);
     (1, 1),
-    (2, 2),
+    (2, 1),
     (3, 2),
-    (4, 3),
+    (4, 10),
     (5, 10),
-    (6, 200),
-    (7, 200),
-    (8, 800),
-    (9, 1000);
+    (6, 10),
+    (7, 10),
+    (8, 15),
+    (9, 15);
+    --(1, 1),
+    --(2, 2),
+    --(3, 3),
+    --(4, 10),
+    --(5, 10),
+    --(6, 10),
+    --(7, 200),
+    --(8, 800),
+    --(9, 1000);
 
-SELECT
+SELECT DISTINCT
     a.[Value],
     COUNT(a.[Value]) AS [Count]
 FROM
@@ -80,10 +91,11 @@ FROM
 CROSS JOIN
     #NotUniqueValues AS b
 GROUP BY
+    a.ID,
     a.[Value]
 HAVING
     COUNT(CASE 
-            WHEN a.[Value] <= b.[Value]
+            WHEN a.[Value] <= b.[Value] AND a.ID != b.ID
             THEN 1
             ELSE NULL
           END) = (COUNT(a.[Value]) + 1) / 2;
