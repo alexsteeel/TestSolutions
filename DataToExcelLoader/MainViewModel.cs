@@ -38,11 +38,13 @@ namespace DataToExcelLoader
                             {
                                 x.Name,
                                 LastStation = x.Stations
+                                    .Where(t => t.DateUpdate == x.Stations.Max(y => y.DateUpdate))
                                     .OrderBy(s => s.Name)
                                     .FirstOrDefault().Name,
                                 OpenStationsCount = x.Stations.Where(s => s.FreightSign).Count(),
                                 AllStationsCount = x.Stations.Count()
                             })
+                        .OrderBy(x => x.Name)
                         .ToList();
 
                     var itogOpenStationsCount = railways.Sum(x => x.OpenStationsCount);
